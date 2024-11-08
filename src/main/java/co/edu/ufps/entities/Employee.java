@@ -3,6 +3,8 @@ package co.edu.ufps.entities;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,28 +24,41 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String first_name;
+	@Column(name = "first_name")
+	private String firstName;
 	
-	private String last_name;
+	@Column(name = "last_name")
+	private String lastName;
 	
-	private Date birth_date;
+	@Column(name = "birth_date")
+	private Date birthDate;
 	
-	private Date entry_date;
+	@Column(name = "entry_date")
+	private Date entryDate;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "pos_id")
 	private Position position;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "dep_id")
 	private Department department;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "chief", cascade = CascadeType.ALL)
 	List<Department> chiefs; 
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "visits")
 	List<Department> visits;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
 	List<ProjectAssignment> assignments; 
+	
+	public void addDepartment(Department department) {
+		this.visits.add(department);
+	}
 }

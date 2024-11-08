@@ -23,9 +23,11 @@ public class Project {
 	
 	private String description;
 	
-	private Date start_date;
+	@Column(name = "start_date")
+	private Date startDate;
 	
-	private Date end_date;
+	@Column(name = "end_date")
+	private Date endDate;
 	
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	List<ProjectAssignment> assignments; 

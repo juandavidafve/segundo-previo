@@ -2,6 +2,8 @@ package co.edu.ufps.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,6 +24,7 @@ public class Position {
 	
 	private Integer salary;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
 	List<Employee> employees; 
 }
